@@ -57,7 +57,7 @@ router.post("/login", validateUser, findUserByUsername, (req, res, next) => {
       id: req.dbUser.id,
       username: req.dbUser.username,
     };
-    const token = jwt.sign(payload, "MY SECRET", { expiresIn: "1d" });
+    const token = jwt.sign(payload, "SECRET", { expiresIn: "1d" });
 
     const obj = {
       message: `Welcome, ${req.dbUser.username}`,

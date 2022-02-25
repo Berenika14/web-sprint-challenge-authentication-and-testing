@@ -2,7 +2,7 @@ const db = require("../../data/dbConfig");
 
 const findUser = async (username) => {
   let result = await db("users").where("username", username);
-  return result;
+  return result[0];
 };
 const findById = async (id) => {
   let [result] = await db("users").where("id", id);

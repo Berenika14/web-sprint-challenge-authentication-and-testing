@@ -2,7 +2,7 @@ const db = require("../../data/dbConfig");
 
 const findUser = async (username) => {
   let result = await db("users").where("username", username);
-  return result[0];
+  return result;
 };
 const findById = async (id) => {
   let [result] = await db("users").where("id", id);
@@ -14,9 +14,14 @@ const create = async (body) => {
   let user = findById(result);
   return user;
 };
+const findUsername = async (username) => {
+  let result = await db("users").where("username", username);
+  return result[0];
+};
 
 module.exports = {
   findUser,
   findById,
   create,
+  findUsername,
 };

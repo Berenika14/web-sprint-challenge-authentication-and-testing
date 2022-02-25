@@ -28,7 +28,7 @@ async function usernameIsUnique(req, res, next) {
 }
 
 async function findUserByUsername(req, res, next) {
-  Users.findUser(req.user.username).then((user) => {
+  Users.findUsername(req.user.username).then((user) => {
     if (user) {
       req.dbUser = user;
       next();

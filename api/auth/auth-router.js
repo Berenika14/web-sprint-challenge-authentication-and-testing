@@ -51,13 +51,13 @@ router.post(
       the response body should include a string exactly as follows: "username taken".
   */
 
-router.post("/login", validateUser, findUserByUsername, (req, res) => {
+router.post("/login", validateUser, findUserByUsername, (req, res, next) => {
   if (bcrypt.compareSync(req.user.password, req.dbUser.password)) {
     const payload = {
       id: req.dbUser.id,
       username: req.dbUser.username,
     };
-    const token = jwt.sign(payload, "SECRET", { expiresIn: "1d" });
+    const token = jwt.sign(payload, "MY SECRET", { expiresIn: "1d" });
 
     const obj = {
       message: `Welcome, ${req.dbUser.username}`,

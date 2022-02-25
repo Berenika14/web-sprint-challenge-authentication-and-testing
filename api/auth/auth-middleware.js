@@ -12,6 +12,7 @@ function validateUser(req, res, next) {
     next();
   }
 }
+
 async function usernameIsUnique(req, res, next) {
   Users.findUser(req.user.username)
     .then((user) => {
@@ -25,7 +26,19 @@ async function usernameIsUnique(req, res, next) {
       next(err);
     });
 }
+
+async function findUserByUsername(req, res, next) {
+  Users.findUser(req.user.username).then((user) => {
+    if (user) {
+      req.dbUser = user;
+      next();
+    } else {
+      next({ status: 400, message: "invalid credentials" });
+    }
+  });
+}
 module.exports = {
   validateUser,
   usernameIsUnique,
+  findUserByUsername,
 };

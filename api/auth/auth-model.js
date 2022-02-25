@@ -14,6 +14,7 @@ const create = async (body) => {
   let user = findById(result);
   return user;
 };
+
 module.exports = {
   findUser,
   findById,

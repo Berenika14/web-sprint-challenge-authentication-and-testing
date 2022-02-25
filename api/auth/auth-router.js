@@ -1,8 +1,12 @@
 const router = require("express").Router();
-
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const Users = require("./auth-model");
-const { validateUser, usernameIsUnique } = require("./auth-middleware");
+const {
+  validateUser,
+  usernameIsUnique,
+  findUserByUsername,
+} = require("./auth-middleware");
 
 router.post(
   "/register",
@@ -47,8 +51,22 @@ router.post(
       the response body should include a string exactly as follows: "username taken".
   */
 
-router.post("/login", (req, res) => {
-  res.end("implement login, please!");
+router.post("/login", validateUser, findUserByUsername, (req, res) => {
+  if (bcrypt.compareSync(req.user.password, req.dbUser.password)) {
+    const payload = {
+      id: req.dbUser.id,
+      username: req.dbUser.username,
+    };
+    const token = jwt.sign(payload, "SECRET", { expiresIn: "1d" });
+
+    const result = {
+      message: `Welcome, ${req.dbUser.username}`,
+      token,
+    };
+    res.status(200).json(result);
+  } else {
+    res.json("invalid credentials");
+  }
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.

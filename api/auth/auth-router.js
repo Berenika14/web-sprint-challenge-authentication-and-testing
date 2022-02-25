@@ -3,16 +3,6 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 
 router.post("/register", async (req, res, next) => {
-  try {
-    const user = req.body;
-    const hash = bcrypt.hashSync(user.password, 10);
-    user.password = hash;
-    let addingUser = await Users.add(user);
-    res.status(201).json(addingUser);
-  } catch (err) {
-    next(err);
-  }
-
   res.end("implement register, please!");
   /*
     IMPLEMENT

@@ -1,7 +1,19 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
-router.post('/register', (req, res) => {
-  res.end('implement register, please!');
+const bcrypt = require("bcrypt");
+
+router.post("/register", async (req, res, next) => {
+  try {
+    const user = req.body;
+    const hash = bcrypt.hashSync(user.password, 10);
+    user.password = hash;
+    let addingUser = await Users.add(user);
+    res.status(201).json(addingUser);
+  } catch (err) {
+    next(err);
+  }
+
+  res.end("implement register, please!");
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -29,8 +41,8 @@ router.post('/register', (req, res) => {
   */
 });
 
-router.post('/login', (req, res) => {
-  res.end('implement login, please!');
+router.post("/login", (req, res) => {
+  res.end("implement login, please!");
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.

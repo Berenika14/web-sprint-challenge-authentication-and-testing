@@ -5,6 +5,15 @@ const server = require("./server");
 
 // Write your tests here
 
-test("sanity", () => {
-  expect(true).toBe(false);
+beforeAll(async () => {
+  await db.migrate.rollback();
+  await db.migrate.latest();
+});
+
+beforeEach(async () => {
+  await db("users").truncate();
+});
+
+test("we are using the correct environment", () => {
+  expect(process.env.NODE_ENV).toBe("testing");
 });

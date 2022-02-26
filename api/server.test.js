@@ -23,4 +23,14 @@ describe("tests the users model", () => {
     const users = await db("users");
     expect(users).toHaveLength(0);
   });
+
+  test("users can be inserted", async () => {
+    const result = await Users.create({
+      username: "foo",
+      password: "bar",
+    });
+    expect(result).toEqual({ id: 1, username: "foo", password: "bar" });
+    let users = await db("users");
+    expect(users).toHaveLength(1);
+  });
 });

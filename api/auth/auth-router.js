@@ -59,11 +59,11 @@ router.post("/login", validateUser, findUserByUsername, (req, res, next) => {
     };
     const token = jwt.sign(payload, "SECRET", { expiresIn: "1d" });
 
-    const obj = {
+    const result = {
       message: `Welcome, ${req.dbUser.username}`,
       token,
     };
-    res.status(200).json(obj);
+    res.status(200).json(result);
   } else {
     res.json("invalid credentials");
   }

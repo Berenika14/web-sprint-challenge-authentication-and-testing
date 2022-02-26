@@ -24,7 +24,7 @@ describe("tests the users model", () => {
     expect(users).toHaveLength(0);
   });
 
-  test("users can be inserted", async () => {
+  test("user can be inserted", async () => {
     const result = await Users.create({
       username: "foo",
       password: "bar",
@@ -32,5 +32,15 @@ describe("tests the users model", () => {
     expect(result).toEqual({ id: 1, username: "foo", password: "bar" });
     let users = await db("users");
     expect(users).toHaveLength(1);
+  });
+
+  test("can get user by a specific id", async () => {
+    const insert = await Users.create({
+      username: "foo",
+      password: "bar",
+    });
+    expect(insert).toEqual({ id: 1, username: "foo", password: "bar" });
+    const result = await Users.findById(1);
+    expect(result).toEqual({ id: 1, username: "foo", password: "bar" });
   });
 });

@@ -69,4 +69,4 @@ The bcrypt hashing function allows us to create a secure password by hashing it 
 4. How does _Test Driven Development_ change the way we write applications and tests?
 
    Test Driven Development (TDD) focuses on creating unit test cases before developing the actual code.
-   A key benefit of test-driven development is that it makes the developer focus on requirements before writing code.Also reduces teh chances of bugs in the future.
+   A benefit of test-driven development is that it makes the developer focus on requirements before writing code.Also reduces teh chances of bugs in the future.
